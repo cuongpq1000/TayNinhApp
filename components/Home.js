@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import { Text, View, StyleSheet, TouchableOpacity, Image, Pressable, Alert, ImageBackground} from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
 import { ScrollView, SafeAreaView, StatusBar} from "react-native";
@@ -6,53 +6,70 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { Ionicons } from "@expo/vector-icons";
 import { Card } from "react-native-elements";
+import DiscoverActivity from '../components/DiscoverActivity';
 
 const Home = ({navigation}) => {
-    // useEffect(() => {
-    //     await axios.post()
-    // },[]
-    // )
     const state = {
         images: [
           "https://trangbang.vn/wp-content/uploads/2023/01/b1.jpg",
           "https://trangbang.vn/wp-content/uploads/2023/01/b2.4.jpg",
           "https://trangbang.vn/wp-content/uploads/2023/01/FARMSTAY.jpg",
         ]
-      };
-    const getEvent = async () => {
-        try {
-
+    };
+    const [data, setdata] = useState([]);
+    
+    function getData(temp) {
+        let api = "";
+        if(temp === 'food'){
+            api += "https://trangbang.vn/wp-json/wp/v2/posts?categories=39"
         }
-        catch(e){
-            console.log(e);
+        else if(temp === 'place'){
+            api +=  "https://trangbang.vn/wp-json/wp/v2/posts?categories=37";
         }
+        else if(temp === 'visit'){
+            api +="https://trangbang.vn/wp-json/wp/v2/posts?categories=42";
+        }
+        else if(temp === 'shop'){
+            api +=  "https://trangbang.vn/wp-json/wp/v2/posts?categories=40";
+        }
+        else{
+            api += "https://trangbang.vn/wp-json/wp/v2/posts?categories=42";
+        }
+        navigation.navigate('DiscoverActivity', { myParam: api})
     }
+    // useEffect(() => {
+    //     getData();
+    // }, []);
     return (
         <ScrollView styles={{flex: 1}}>
             <SliderBox images={state.images} />
             <Text style={styles.title}>Nổi bật</Text>
 
             <View style={styles.wrapper}>
-                <TouchableOpacity style={[styles.box, {backgroundColor: 'skyblue'}]} onPress={() => Alert.alert('Product under development')}>
-                    <Icon name="md-restaurant-outline" size={60} style={styles.icon} />
-                    <Text style = {{alignSelf: 'center', marginBottom: 5, color: 'white'}}>Ẩm thực</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={[styles.box, {backgroundColor: 'skyblue'}]} onPress={() => Alert.alert('Product under development')}>
+                <View>
+                    <TouchableOpacity style={[styles.box, {backgroundColor: 'skyblue'}]} onPress={() => getData('food')}>
+                        <Icon name="md-restaurant-outline" size={60} style={styles.icon} />
+                        <Text style = {{alignSelf: 'center', marginBottom: 5, color: 'white'}}>Ẩm thực</Text>
+                    </TouchableOpacity>
+                </View>
+
+
+                <TouchableOpacity style={[styles.box, {backgroundColor: 'skyblue'}]} onPress={() => getData('place')}>
                     <Icon name="bed-outline" size={60} style={styles.icon} />
                     <Text style = {{alignSelf: 'center', marginBottom: 5, color: 'white'}}>Lưu trú</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.box, {backgroundColor: 'skyblue'}]} onPress={() => Alert.alert('Product under development')}>
+                <TouchableOpacity style={[styles.box, {backgroundColor: 'skyblue'}]} onPress={() => getData('visit')}>
                     <MaterialIcons name="place" size={60} style={styles.icon}></MaterialIcons>
                     <Text style = {{alignSelf: 'center', marginBottom: 5, color: 'white'}}>Tham quan</Text>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.wrapper1}>
-                <TouchableOpacity style={[styles.box, {backgroundColor: 'skyblue'}]} onPress={() => Alert.alert('Product under development')}>
+                <TouchableOpacity style={[styles.box, {backgroundColor: 'skyblue'}]} onPress={() => getData('shop')}>
                     <Ionicons name="ios-cart-outline" size={60} style={styles.icon}></Ionicons>
                     <Text style = {{alignSelf: 'center', marginBottom: 5, color: 'white'}}>Mua sắm</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.box, {backgroundColor: 'skyblue'}]} onPress={() => Alert.alert('Product under development')}>
+                <TouchableOpacity style={[styles.box, {backgroundColor: 'skyblue'}]} onPress={() => getData('util')}>
                     <Icon name="ios-bus-outline" size={60} style={styles.icon} />
                     <Text style = {{alignSelf: 'center', marginBottom: 5, color: 'white'}}>Tiện ích</Text>
                 </TouchableOpacity>
