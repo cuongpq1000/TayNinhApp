@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box, FlatList, Center, NativeBaseProvider, Text, Alert } from "native-base";
 import {View, Image, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator} from 'react-native';
 import he from 'he';
-export default function DiscoverActivity({route}) {
+export default function DiscoverActivity({route, navigation}) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const { myParam } = route.params;
@@ -14,9 +14,13 @@ export default function DiscoverActivity({route}) {
     setLoading(false);
   };
 
+  function sendData(data) {
+    navigation.navigate('Detail', { myParam: data})
+  }
+
   useEffect(() => {
     fetchData();
-    const dataInterval = setInterval(() => fetchData(), 5 * 1000);
+    const dataInterval = setInterval(() => fetchData(), 10 * 1000);
     return () => clearInterval(dataInterval);
   }, []);
 
@@ -30,7 +34,7 @@ export default function DiscoverActivity({route}) {
           <>
             {data.map((item) => (
           <View key={item.id} >
-            <TouchableOpacity style={styles.card} onPress={() => console.log('under development')}>
+            <TouchableOpacity style={styles.card} onPress={() => sendData(item)}>
                 <Image source={{ uri: item.thumb_url }} style={styles.image} />
                 <Text style={styles.title}>{he.decode(item.title.rendered)}</Text>
                 <Text style={{fontsize: 1}}>{he.decode(item.excerpt.rendered).replaceAll('<p>', '').replaceAll('</p>', '')}</Text>
