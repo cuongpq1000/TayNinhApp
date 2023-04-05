@@ -6,7 +6,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { Ionicons } from "@expo/vector-icons";
 import { Card } from "react-native-elements";
-import DiscoverActivity from '../components/DiscoverActivity';
 
 const Home = ({navigation}) => {
     const state = {
@@ -16,7 +15,6 @@ const Home = ({navigation}) => {
           "https://trangbang.vn/wp-content/uploads/2023/01/FARMSTAY.jpg",
         ]
     };
-    const [data, setdata] = useState([]);
     
     function getData(temp) {
         let api = "";
