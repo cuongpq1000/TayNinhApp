@@ -1,11 +1,9 @@
-import { useState, useEffect} from "react";
 import { Text, View, StyleSheet, TouchableOpacity, Image, Pressable, Alert, ImageBackground} from "react-native";
 import { SliderBox } from "react-native-image-slider-box";
 import { ScrollView, SafeAreaView, StatusBar} from "react-native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { Ionicons } from "@expo/vector-icons";
-import { Card } from "react-native-elements";
 
 const Home = ({navigation}) => {
     const state = {

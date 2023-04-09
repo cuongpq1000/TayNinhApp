@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Box, FlatList, Center, NativeBaseProvider, Text, Alert } from "native-base";
-import {View, Image, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator} from 'react-native';
+import {View, Image, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator, Text} from 'react-native';
 import he from 'he';
+import { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+
 export default function DiscoverActivity({route, navigation}) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -19,43 +21,39 @@ export default function DiscoverActivity({route, navigation}) {
   }
 
   useEffect(() => {
-    fetchData();
-    const dataInterval = setInterval(() => fetchData(), 10 * 1000);
+    const dataInterval = setInterval(() => fetchData(), 5 * 1000);
     return () => clearInterval(dataInterval);
   }, []);
 
   return (
-    <NativeBaseProvider>
-      <ScrollView>
-        <View style={styles.container}>
-        {loading ? (
+  <View style={styles.container}>
+    <ScrollView style={{ flex: 1, marginTop: 50}}>
+    {loading ? (
           <ActivityIndicator size="large" color="#0000ff" style={styles.loadingIndicator}/>
         ) : (
           <>
             {data.map((item) => (
-          <View key={item.id} >
-            <TouchableOpacity style={styles.card} onPress={() => sendData(item)}>
-                <Image source={{ uri: item.thumb_url }} style={styles.image} />
-                <Text style={styles.title}>{he.decode(item.title.rendered)}</Text>
-                <Text style={{fontsize: 1}}>{he.decode(item.excerpt.rendered).replaceAll('<p>', '').replaceAll('</p>', '')}</Text>
-            </TouchableOpacity>
-          </View>
-          ))}
+              <View key={item.id} >
+                <TouchableOpacity style={styles.card} onPress={() => sendData(item)}>
+                  <Image source={{ uri: item.thumb_url }} style={styles.image} />
+                  <Text style={styles.title}>{he.decode(item.title.rendered)}</Text>
+                  <Text style={{fontsize: 1}}>{he.decode(item.excerpt.rendered).replaceAll('<p>', '').replaceAll('</p>', '')}</Text>
+                </TouchableOpacity>
+              </View>
+            ))}
           </>
         )}
-      </View>
-
-      </ScrollView> 
-
-    </NativeBaseProvider>
+    </ScrollView>
+    <TouchableOpacity style={[styles.box, {position: 'absolute', zIndex: 1, marginTop: 50, marginLeft: 10}]} onPress={() => navigation.goBack()}>
+      <FontAwesomeIcon icon={faArrowLeft} color="#000000" size={24} />
+    </TouchableOpacity>
+  </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flex: 1
   },
   loadingIndicator: {
     flex: 1,
@@ -84,4 +82,3 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 });
-
