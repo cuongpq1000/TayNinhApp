@@ -16,22 +16,22 @@ const Home = ({navigation}) => {
     
     function getData(temp) {
         let api = "";
-        if(temp === 'food'){
+        if(temp === 'Ẩm thực'){
             api += "https://trangbang.vn/wp-json/wp/v2/posts?categories=39"
         }
-        else if(temp === 'place'){
+        else if(temp === 'Lưu trú'){
             api +=  "https://trangbang.vn/wp-json/wp/v2/posts?categories=37";
         }
-        else if(temp === 'visit'){
+        else if(temp === 'Tham quan'){
             api +="https://trangbang.vn/wp-json/wp/v2/posts?categories=42";
         }
-        else if(temp === 'shop'){
+        else if(temp === 'Mua sắm'){
             api +=  "https://trangbang.vn/wp-json/wp/v2/posts?categories=40";
         }
         else{
             api += "https://trangbang.vn/wp-json/wp/v2/posts?categories=42";
         }
-        navigation.navigate('DiscoverActivity', { myParam: api})
+        navigation.navigate('DiscoverActivity', { myParam: api, title: temp});
     }
     // useEffect(() => {
     //     getData();
@@ -43,29 +43,29 @@ const Home = ({navigation}) => {
 
             <View style={styles.wrapper}>
                 <View>
-                    <TouchableOpacity style={[styles.box, {backgroundColor: 'skyblue'}]} onPress={() => getData('food')}>
+                    <TouchableOpacity style={[styles.box, {backgroundColor: 'skyblue'}]} onPress={() => getData('Ẩm thực')}>
                         <Icon name="md-restaurant-outline" size={60} style={styles.icon} />
                         <Text style = {{alignSelf: 'center', marginBottom: 5, color: 'white'}}>Ẩm thực</Text>
                     </TouchableOpacity>
                 </View>
 
 
-                <TouchableOpacity style={[styles.box, {backgroundColor: 'skyblue'}]} onPress={() => getData('place')}>
+                <TouchableOpacity style={[styles.box, {backgroundColor: 'skyblue'}]} onPress={() => getData('Lưu trú')}>
                     <Icon name="bed-outline" size={60} style={styles.icon} />
                     <Text style = {{alignSelf: 'center', marginBottom: 5, color: 'white'}}>Lưu trú</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.box, {backgroundColor: 'skyblue'}]} onPress={() => getData('visit')}>
+                <TouchableOpacity style={[styles.box, {backgroundColor: 'skyblue'}]} onPress={() => getData('Tham quan')}>
                     <MaterialIcons name="place" size={60} style={styles.icon}></MaterialIcons>
                     <Text style = {{alignSelf: 'center', marginBottom: 5, color: 'white'}}>Tham quan</Text>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.wrapper1}>
-                <TouchableOpacity style={[styles.box, {backgroundColor: 'skyblue'}]} onPress={() => getData('shop')}>
+                <TouchableOpacity style={[styles.box, {backgroundColor: 'skyblue'}]} onPress={() => getData('Mua sắm')}>
                     <Ionicons name="ios-cart-outline" size={60} style={styles.icon}></Ionicons>
                     <Text style = {{alignSelf: 'center', marginBottom: 5, color: 'white'}}>Mua sắm</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.box, {backgroundColor: 'skyblue'}]} onPress={() => getData('util')}>
+                <TouchableOpacity style={[styles.box, {backgroundColor: 'skyblue'}]} onPress={() => getData('Tiện ích')}>
                     <Icon name="ios-bus-outline" size={60} style={styles.icon} />
                     <Text style = {{alignSelf: 'center', marginBottom: 5, color: 'white'}}>Tiện ích</Text>
                 </TouchableOpacity>

@@ -10,20 +10,20 @@ const tab = createBottomTabNavigator();
 const BottomBar = () => {
     return (
         <tab.Navigator>
-            <tab.Screen name="Home" 
+            <tab.Screen name="Trang chủ" 
             component={Home} 
             options={{
-                tabBarLabel: 'Home',
+                tabBarLabel: 'Trang chủ',
                 tabBarIcon: ({color, size}) => (
                     <MaterialCommunityIcons name="home" color={color} size={size} />
                 )
             }}
             ></tab.Screen>
             <tab.Screen 
-            name="Discover" 
+            name="Khám phá" 
             component={Discover}
             options={{
-                tabBarLabel: 'Discover',
+                tabBarLabel: 'Khám phá',
                 tabBarIcon: ({color, size}) => (
                     <Entypo name="eye" color={color} size={size} />
                 )
@@ -31,10 +31,10 @@ const BottomBar = () => {
             ></tab.Screen>
 
             <tab.Screen 
-            name="Event" 
+            name="Sự kiện" 
             component={Event}
             options={{
-                tabBarLabel: 'Event',
+                tabBarLabel: 'Sự kiện',
                 tabBarIcon: ({color, size}) => (
                     <Entypo name="calendar" color={color} size={size} />
                 )
@@ -42,10 +42,10 @@ const BottomBar = () => {
             ></tab.Screen>
 
             <tab.Screen 
-            name="Schedule" 
+            name="Lịch trình" 
             component={Schedule}
             options={{
-                tabBarLabel: 'Schedule',
+                tabBarLabel: 'Lịch trình',
                 tabBarIcon: ({color, size}) => (
                     <MaterialCommunityIcons name="format-list-bulleted" color={color} size={size} />
                 )

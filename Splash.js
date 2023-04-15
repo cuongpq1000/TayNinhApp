@@ -6,7 +6,7 @@ function SplashScreen({ navigation }) {
     // Wait for 3 seconds and then navigate to the next screen
     setTimeout(() => {
       navigation.navigate('Bottom');
-    }, 3000);
+    }, 5000);
   }, []);
 
   return (
