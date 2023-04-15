@@ -37,7 +37,7 @@ export default function DiscoverActivity({route, navigation}) {
                 <TouchableOpacity style={styles.card} onPress={() => sendData(item)}>
                   <Image source={{ uri: item.thumb_url }} style={styles.image} />
                   <Text style={styles.title}>{he.decode(item.title.rendered)}</Text>
-                  <Text style={{fontsize: 1}}>{he.decode(item.excerpt.rendered).replaceAll('<p>', '').replaceAll('</p>', '')}</Text>
+                  <Text>{he.decode(item.excerpt.rendered).replaceAll('<p>', '').replaceAll('</p>', '')}</Text>
                 </TouchableOpacity>
               </View>
             ))}

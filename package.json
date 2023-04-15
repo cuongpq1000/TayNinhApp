@@ -22,6 +22,7 @@
     "expo": "~48.0.5",
     "expo-status-bar": "~1.4.4",
     "he": "^1.2.0",
+    "lottie-react-native": "^6.0.0-rc.3",
     "native-base": "^3.4.28",
     "react": "18.2.0",
     "react-native": "0.71.3",
