@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { NativeBaseProvider, Text } from "native-base";
+import { NativeBaseProvider } from "native-base";
 import {
+  Text,
   View,
   Image,
   StyleSheet,
@@ -10,27 +11,30 @@ import {
   TouchableOpacity,
 } from "react-native";
 import he from "he";
-import HTML from "react-native-render-html";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-// import { WebView } from 'react-native-webview';
+import { WebView } from "react-native-webview";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
+
 export default function Detail({ route, navigation }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const { myParam } = route.params;
-  const { width } = useWindowDimensions();
-  const fetchData = () => {
-    const data = myParam;
-    setData(data);
-    setLoading(false);
-  };
-  useEffect(() => {
-    const dataInterval = setInterval(() => fetchData(), 2000);
-    return () => clearInterval(dataInterval);
-  }, []);
+  // const fetchData = () => {
+  //   const data = myParam;
+  //   setData(data);
+  //   const htmlContent = data.content.rendered;
+  //   setHtml(htmlContent);
+  //   setLoading(false);
+  // };
+
+  // useEffect(() => {
+  //   const dataInterval = setInterval(() => fetchData(), 2000);
+  //   return () => clearInterval(dataInterval);
+  // }, []);
 
   return (
-    <NativeBaseProvider>
+    <SafeAreaView style={{ flex: 1, backgroundColor:'#FFFFFF' }}>
       <View style={styles.topBar}>
         <TouchableOpacity
           style={styles.backButton}
@@ -39,46 +43,58 @@ export default function Detail({ route, navigation }) {
           <FontAwesomeIcon icon={faArrowLeft} color="#000000" size={24} />
         </TouchableOpacity>
       </View>
-      <ScrollView>
-        <View style={styles.container}>
-          {loading ? (
-            <ActivityIndicator
-              size="large"
-              color="#0000ff"
-              style={styles.loadingIndicator}
-            />
-          ) : (
-            <>
-              <View>
-                <Image source={{ uri: data.thumb_url }} style={styles.image} />
-                <Text style={styles.title}>
-                  {he.decode(data.title.rendered)}
-                </Text>
-                <HTML
-                  contentWidth={width}
-                  source={{ html: data.content.rendered }}
-                />
-              </View>
-            </>
-          )}
-        </View>
-      </ScrollView>
-    </NativeBaseProvider>
+      <WebView
+        style={styles.webView}
+        originWhitelist={["*"]}
+        source={{ html: myParam.content.rendered }}
+      />
+    </SafeAreaView>
+    // <Text>{myParam.content.rendered}</Text>
+    // <View style={{ flex: 1 }}>
+    //   <View style={styles.topBar}>
+    //     <TouchableOpacity
+    //       style={styles.backButton}
+    //       onPress={() => navigation.goBack()}
+    //     >
+    //       <FontAwesomeIcon icon={faArrowLeft} color="#000000" size={24} />
+    //     </TouchableOpacity>
+    //   </View>
+    /* <View style={styles.container}> */
+    /* {loading ? (
+          <ActivityIndicator
+            size="large"
+            color="#0000ff"
+            style={styles.loadingIndicator}
+          />
+        ) : (
+          <View>
+            <Text>{myParam.content.rendered}</Text>
+            <Image source={{ uri: data.thumb_url }} style={styles.image} />
+            <Text style={styles.title}>{he.decode(data.title.rendered)}</Text>
+          </View>
+        
+        )} */
+    /* </View> */
+    // </View>
   );
 }
+
 const styles = StyleSheet.create({
   topBar: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    height: 100,
+    height: 50,
     backgroundColor: "#FFFFFF",
     borderBottomWidth: 1,
     borderBottomColor: "#E0E0E0",
     paddingHorizontal: 16,
+    marginBottom: 10
   },
-  backButton: {
-    marginTop: 30,
+  webView: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
   },
   title1: {
     fontSize: 20,
@@ -90,6 +106,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+
     justifyContent: "center",
     alignItems: "center",
   },
@@ -98,16 +115,15 @@ const styles = StyleSheet.create({
     marginTop: 400,
   },
   title: {
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: "bold",
     marginBottom: 5,
   },
   image: {
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 20,
     width: 415,
-    height: 300,
+    height: 200,
     marginBottom: 20,
   },
 });

@@ -75,7 +75,7 @@ const Home = ({navigation}) => {
                 <Text style={styles.title}>Sự kiện</Text>
                     <TouchableOpacity 
                     activeOpacity={0.5}
-                    onPress={() => navigation.navigate('Event')}
+                    onPress={() => navigation.navigate('Sự kiện')}
                     style={styles.button}>
                         <Text>Xem thêm</Text>
                     </TouchableOpacity>
@@ -100,7 +100,7 @@ const Home = ({navigation}) => {
                 <Text style={styles.title}>Khám phá</Text>
                 <TouchableOpacity
                     activeOpacity={0.5}
-                    onPress={() => navigation.navigate('Discover')} 
+                    onPress={() => navigation.navigate('Khám phá')} 
                     style={styles.button}>
                         <Text>Xem thêm</Text>
                     </TouchableOpacity>
