@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Image, ActivityIndicator } from 'react-native';
+import { View, Image, ActivityIndicator, Text, Dimensions } from 'react-native';
 import LottieView from 'lottie-react-native';
 function SplashScreen({ navigation }) {
   useEffect(() => {
@@ -10,12 +10,18 @@ function SplashScreen({ navigation }) {
   }, []);
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ flex: 1 }}>
       <LottieView
-        source={require('./assets/19902-splash-screen.json')}
+        source={require('./assets/2523-loading.json')}
         autoPlay
         loop
       />
+      <Text style={{
+        position: 'absolute',
+        height: 40,
+        left: 100,
+        top: 150,
+      }}>Khám phá Trảng Bàng</Text>
     </View>
   );
 }
