@@ -53,7 +53,7 @@ export default function DiscoverActivity({route, navigation}) {
       </ScrollView>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   },
   loadingIndicator: {
     flex: 1,
-    marginTop: 400
+    marginTop: 300
   },
   card: {
     backgroundColor: '#fff',
