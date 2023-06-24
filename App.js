@@ -6,6 +6,7 @@ import DiscoverActivity from './components/DiscoverActivity';
 import Detail from './components/Detail';
 LogBox.ignoreAllLogs();
 const stack = createStackNavigator();
+import SplashScreen from './Splash';
 
 export default function App() {
     return (
@@ -13,6 +14,12 @@ export default function App() {
         <stack.Navigator screenOptions={{
           headerShown: false
         }}>
+          <stack.Screen
+          name="Splash"
+          component={SplashScreen}
+          options={{
+            headerShown: false
+          }}></stack.Screen>
           <stack.Screen name="Bottom" component={BottomBar}></stack.Screen>
           <stack.Screen name="DiscoverActivity" component={DiscoverActivity} />
           <stack.Screen name="Detail" component={Detail} />
