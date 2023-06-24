@@ -42,12 +42,12 @@ const BottomBar = () => {
             ></tab.Screen>
 
             <tab.Screen 
-            name="Lịch trình" 
+            name="Liên lạc" 
             component={Schedule}
             options={{
-                tabBarLabel: 'Lịch trình',
+                tabBarLabel: 'Liên lạc',
                 tabBarIcon: ({color, size}) => (
-                    <MaterialCommunityIcons name="format-list-bulleted" color={color} size={size} />
+                    <MaterialCommunityIcons name="contacts" color={color} size={size} />
                 )
             }}
             ></tab.Screen>

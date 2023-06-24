@@ -4,13 +4,11 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  ActivityIndicator,
   Text,
 } from "react-native";
 import he from "he";
 import { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import LoadingActivity from "./LoadingActivity";
 export default function Event({ navigation }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -35,11 +33,7 @@ export default function Event({ navigation }) {
     <View style={styles.container}>
       <ScrollView>
         {loading ? (
-          <ActivityIndicator
-            size="large"
-            color="#0000ff"
-            style={styles.loadingIndicator}
-          />
+          <LoadingActivity></LoadingActivity>
         ) : (
           <>
             {data.map((item) => (

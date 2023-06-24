@@ -1,7 +1,14 @@
-import { Text, Image, View, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator } from "react-native";
+import {
+  Text,
+  Image,
+  View,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity
+} from "react-native";
 import { useEffect, useState } from "react";
 import he from "he";
-
+import LoadingActivity from "./LoadingActivity";
 export default function Discover({ navigation }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,9 +28,9 @@ export default function Discover({ navigation }) {
     const res = await fetch(api);
     const data = await res.json();
     setTimeout(() => {
-        setData(data);
-        setLoading(false);
-      }, 3000);
+      setData(data);
+      setLoading(false);
+    }, 3000);
   };
 
   const handleReload = (temp) => {
@@ -50,6 +57,7 @@ export default function Discover({ navigation }) {
           >
             <Text style={styles.buttonText}>Tất cả</Text>
           </TouchableOpacity>
+
           <TouchableOpacity
             style={styles.button}
             onPress={() => handleReload("Ẩm thực")}
@@ -72,11 +80,7 @@ export default function Discover({ navigation }) {
       </View>
       <ScrollView>
         {loading ? (
-          <ActivityIndicator
-            size="large"
-            color="#0000ff"
-            style={styles.loadingIndicator}
-          />
+          <LoadingActivity></LoadingActivity>
         ) : (
           <>
             {data.map((item) => (
@@ -135,10 +139,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 120,
     marginTop: 30,
-  },
-  loadingIndicator: {
-    flex: 1,
-    marginTop: 400,
   },
   card: {
     backgroundColor: "#fff",
