@@ -15,6 +15,7 @@ export default function Discover({ navigation }) {
   const [selectedCategory, setSelectedCategory] = useState("Tất cả");
 
   const fetchData = async () => {
+    setLoading(true);
     let api = "";
     if (selectedCategory === "Ẩm thực") {
       api += "https://trangbang.vn/wp-json/wp/v2/posts?categories=39";
@@ -27,16 +28,13 @@ export default function Discover({ navigation }) {
     }
     const res = await fetch(api);
     const data = await res.json();
-    setTimeout(() => {
-      setData(data);
-      setLoading(false);
-    }, 3000);
+    setData(data);
+    await new Promise((resolve) => setTimeout(resolve, 2000));
   };
 
   const handleReload = (temp) => {
-    setLoading(true);
+    fetchData(temp).then(() => setLoading(false));
     setSelectedCategory(temp);
-    fetchData(temp);
   };
 
   const sendData = (data) => {
@@ -44,7 +42,7 @@ export default function Discover({ navigation }) {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData().then(() => setLoading(false));
   }, [selectedCategory]);
 
   return (

@@ -32,12 +32,11 @@ export default function Home({ navigation }) {
     const discover = await respDiscover.json();
     setDiscover(discover[0]);
     setEvent(event[1]);
-    setLoading(false);
+    await new Promise((resolve) => setTimeout(resolve, 2000));
   };
 
   useEffect(() => {
-    const dataInterval = setInterval(() => fetchData(), 2000);
-    return () => clearInterval(dataInterval);
+    fetchData().then(() => setLoading(false));
   }, []);
   return (
     <ScrollView styles={{ flex: 1 }}>

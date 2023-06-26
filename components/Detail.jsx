@@ -20,10 +20,10 @@ export default function Detail({ route, navigation }) {
   const [loading, setLoading] = useState(true);
   const { myParam } = route.params;
   const width = useWindowDimensions().width;
-  const fetchData = () => {
+  const fetchData = async () => {
     const data = myParam;
     setData(data);
-    setLoading(false);
+    await new Promise((resolve) => setTimeout(resolve, 2000));
   };
   const renderers = {
     iframe: IframeRenderer,
@@ -47,8 +47,7 @@ export default function Detail({ route, navigation }) {
     },
   };
   useEffect(() => {
-    const dataInterval = setInterval(() => fetchData(), 2000);
-    return () => clearInterval(dataInterval);
+    fetchData().then(() => setLoading(false));
   }, []);
 
   return (

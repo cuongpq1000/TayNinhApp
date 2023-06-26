@@ -4,20 +4,28 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  RefreshControl,
   Text,
 } from "react-native";
 import he from "he";
 import { useState, useEffect } from "react";
 import LoadingActivity from "./LoadingActivity";
+import React from "react";
 export default function Event({ navigation }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    fetchData().then(() => setRefreshing(false));
+  }, []);
 
   const fetchData = async () => {
     const res = await fetch("https://trangbang.vn/wp-json/wp/v2/posts");
     const data = await res.json();
     setData(data);
-    setLoading(false);
+    await new Promise((resolve) => setTimeout(resolve, 2000));
   };
 
   const sendData = (data) => {
@@ -25,13 +33,16 @@ export default function Event({ navigation }) {
   };
 
   useEffect(() => {
-    const dataInterval = setInterval(() => fetchData(), 3000);
-    return () => clearInterval(dataInterval);
+    fetchData().then(() => setLoading(false));
   }, []);
 
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+      >
         {loading ? (
           <LoadingActivity></LoadingActivity>
         ) : (

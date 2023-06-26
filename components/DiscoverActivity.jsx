@@ -21,7 +21,7 @@ export default function DiscoverActivity({ route, navigation }) {
     const resp = await fetch(`${myParam}`);
     const data = await resp.json();
     setData(data);
-    setLoading(false);
+    await new Promise((resolve) => setTimeout(resolve, 2000));
   };
 
   function sendData(data) {
@@ -29,8 +29,7 @@ export default function DiscoverActivity({ route, navigation }) {
   }
 
   useEffect(() => {
-    const dataInterval = setInterval(() => fetchData(), 2000);
-    return () => clearInterval(dataInterval);
+    fetchData().then(() => setLoading(false));
   }, []);
 
   return (
